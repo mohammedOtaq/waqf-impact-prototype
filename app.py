@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-import cgi
+try:
+    import cgi
+except ModuleNotFoundError:
+    cgi = None
 import datetime as dt
 import html
 import json
@@ -1377,6 +1380,8 @@ class Handler(BaseHTTPRequestHandler):
                     update_memory(con, payload["project_id"], stage_id, "Suspended", "RESUME PROJECT ASSESSMENT with token.")
                 self.send_json({"resume_token": token})
             elif parsed.path == "/api/upload":
+                if cgi is None:
+                    raise RuntimeError("The legacy HTTP upload endpoint requires Python 3.12 or earlier. Use streamlit_app.py for uploads on Streamlit Cloud.")
                 form = cgi.FieldStorage(fp=self.rfile, headers=self.headers, environ={"REQUEST_METHOD": "POST", "CONTENT_TYPE": self.headers.get("Content-Type")})
                 project_id = form.getvalue("project_id")
                 if not project_id or "file" not in form:
