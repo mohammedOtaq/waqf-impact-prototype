@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.venv/
+venv/
+database/*.sqlite
+database/*.sqlite-*
+uploads/*
+reports/interim/*.md
+reports/final/*.md
+.streamlit/secrets.toml
