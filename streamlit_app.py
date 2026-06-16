@@ -102,7 +102,7 @@ def show_project_picker():
 
 
 def project_form():
-    st.subheader("نموذج فتح مشروع وطلب تقييم الأثر")
+    st.subheader("Project Opening and Impact Assessment Request Form")
     with st.form("project_opening_form"):
         c1, c2, c3 = st.columns(3)
         project_name = c1.text_input("Project_Name")
@@ -348,12 +348,12 @@ This prototype uses local SQLite. That is fine for a demo, but production should
 
 core.init_db()
 
-st.title("منصة الذكاء الاصطناعي لتقييم وإدارة الأثر الوقفي والخيري")
+st.title("Waqf and Charity Impact Intelligence Prototype")
 st.caption("Waqf & Charity Impact Intelligence Prototype · Streamlit deployment build")
 
 with st.sidebar:
     st.header("Control")
-    if st.button("إنشاء مشروع تجريبي", use_container_width=True):
+    if st.button("Create Demo Project", use_container_width=True):
         project_id = core.seed_demo()
         st.session_state["project_id"] = project_id
         st.success(project_id)

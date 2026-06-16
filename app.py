@@ -490,10 +490,10 @@ def extract_text(path):
 def infer_fields_from_text(text):
     out = {}
     patterns = {
-        "project_name": r"(?:Project Name|اسم المشروع)\s*[:\-]\s*(.+)",
-        "budget_or_investment_value": r"(?:Budget|الميزانية|Investment|قيمة الاستثمار)\s*[:\-]?\s*([0-9,]+(?:\.\d+)?)",
-        "expected_number_of_beneficiaries": r"(?:Beneficiaries|المستفيدين|عدد المستفيدين)\s*[:\-]?\s*([0-9,]+)",
-        "location": r"(?:Location|الموقع)\s*[:\-]\s*(.+)",
+        "project_name": r"(?:Project Name)\s*[:\-]\s*(.+)",
+        "budget_or_investment_value": r"(?:Budget|Investment|Investment Value)\s*[:\-]?\s*([0-9,]+(?:\.\d+)?)",
+        "expected_number_of_beneficiaries": r"(?:Beneficiaries|Number of Beneficiaries|Expected Beneficiaries)\s*[:\-]?\s*([0-9,]+)",
+        "location": r"(?:Location)\s*[:\-]\s*(.+)",
     }
     for key, pat in patterns.items():
         m = re.search(pat, text, flags=re.IGNORECASE)
@@ -1052,29 +1052,29 @@ def status_payload(project_id):
 
 def seed_demo():
     data = {
-        "project_name": "مشروع كفالة ورعاية الأيتام",
+        "project_name": "Orphan Sponsorship and Care Project",
         "project_type": "Orphan sponsorship project",
         "study_type": "Ex-ante / Forecast",
-        "owning_entity": "مؤسسة وقفية تجريبية",
-        "project_owner": "مدير البرامج",
-        "study_manager": "مدير قياس الأثر",
-        "department": "إدارة المشاريع الخيرية",
-        "location": "دبي",
+        "owning_entity": "Demo Waqf Foundation",
+        "project_owner": "Programs Manager",
+        "study_manager": "Impact Measurement Manager",
+        "department": "Charitable Projects Department",
+        "location": "Dubai",
         "implementation_period": "2026",
         "budget_or_investment_value": "500000",
         "funding_source": "Waqf income",
         "waqf_or_charity_category": "Social welfare",
-        "target_beneficiaries": "الأيتام وأسرهم",
+        "target_beneficiaries": "Orphans and their families",
         "expected_number_of_beneficiaries": "250",
-        "problem_or_social_need": "الحاجة إلى دعم معيشي وتعليمي مستقر للأيتام.",
-        "project_objectives": "تحسين الاستقرار المعيشي والتعليمي للمستفيدين.",
-        "main_activities": "دعم مالي، متابعة تعليمية، إرشاد أسري.",
-        "expected_outputs": "صرف المساعدات وتنفيذ جلسات المتابعة.",
-        "expected_outcomes": "تحسن الاستقرار الأسري والاستمرار التعليمي.",
-        "available_kpis": "عدد المستفيدين، نسبة الاستمرار التعليمي.",
-        "available_evidence": "سجلات داخلية وطلبات مستفيدين.",
+        "problem_or_social_need": "The need for stable living and education support for orphans.",
+        "project_objectives": "Improve household stability and education continuity for beneficiaries.",
+        "main_activities": "Financial support, education follow-up, and family guidance.",
+        "expected_outputs": "Aid disbursement and follow-up sessions delivered.",
+        "expected_outcomes": "Improved family stability and education continuity.",
+        "available_kpis": "Number of beneficiaries, education continuity rate.",
+        "available_evidence": "Internal records and beneficiary applications.",
         "management_decision_required": "Continue pilot or approve with conditions.",
-        "initial_risks": "جودة البيانات، اعتماد الوكيل المالي.",
+        "initial_risks": "Data quality and financial proxy validation.",
         "missing_data": "Financial proxy requires validation.",
         "confidentiality_level": "High",
         "beneficiary_privacy_requirements": "Mask beneficiary identities in reports.",
@@ -1085,7 +1085,7 @@ def seed_demo():
 
 HTML_PAGE = r"""
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1120,7 +1120,7 @@ HTML_PAGE = r"""
     .metric .label { color:var(--muted); font-size:12px; }
     .metric .value { font-size:20px; font-weight:700; margin-top:8px; overflow-wrap:anywhere; }
     pre { white-space:pre-wrap; direction:ltr; text-align:left; background:#111a15; color:#eef8f2; border-radius:8px; padding:14px; overflow:auto; max-height:540px; }
-    .report { direction:rtl; text-align:right; white-space:pre-wrap; background:#fbfcfa; border:1px solid var(--line); border-radius:8px; padding:14px; max-height:620px; overflow:auto; }
+    .report { direction:ltr; text-align:left; white-space:pre-wrap; background:#fbfcfa; border:1px solid var(--line); border-radius:8px; padding:14px; max-height:620px; overflow:auto; }
     .gate { display:grid; grid-template-columns:90px 1fr 120px; gap:8px; align-items:center; border-bottom:1px solid var(--line); padding:8px 0; }
     .status-Approved { color:var(--accent); font-weight:700; }
     .status-Under { color:var(--amber); font-weight:700; }
@@ -1132,14 +1132,14 @@ HTML_PAGE = r"""
 </head>
 <body>
 <header>
-  <h1>منصة الذكاء الاصطناعي لتقييم وإدارة الأثر الوقفي والخيري</h1>
+  <h1>Waqf and Charity Impact Intelligence Prototype</h1>
   <div class="subtitle">Waqf & Charity Impact Intelligence Prototype · Stage-gate governance · SROI · Evidence registers · Audit trail</div>
 </header>
 <main>
   <aside>
-    <h2>المشاريع</h2>
-    <button onclick="seedDemo()">إنشاء مشروع تجريبي</button>
-    <button class="ghost" onclick="refresh()">تحديث</button>
+    <h2>Projects</h2>
+    <button onclick="seedDemo()">Create Demo Project</button>
+    <button class="ghost" onclick="refresh()">Refresh</button>
     <div id="projects"></div>
   </aside>
   <section>
@@ -1152,7 +1152,7 @@ HTML_PAGE = r"""
       <button class="danger" onclick="pauseProject()">PAUSE</button>
     </div>
     <div id="status"></div>
-    <h2>نموذج فتح مشروع وطلب تقييم الأثر</h2>
+    <h2>Project Opening and Impact Assessment Request Form</h2>
     <form id="projectForm">
       <div class="row3">
         <div><label>Project Name</label><input name="project_name" required></div>
@@ -1204,14 +1204,14 @@ HTML_PAGE = r"""
     <h3>UPLOAD PROJECT DOCUMENT</h3>
     <form id="uploadForm">
       <input type="file" name="file">
-      <button type="submit" class="secondary">رفع الوثيقة</button>
+      <button type="submit" class="secondary">Upload Document</button>
     </form>
     <h3>Stage Gates</h3>
     <div id="gates"></div>
     <h3>Dashboard</h3>
     <div id="dashboard"></div>
-    <h3>آخر تقرير</h3>
-    <div id="report" class="report">لم يتم تشغيل أي مرحلة بعد.</div>
+    <h3>Latest Report</h3>
+    <div id="report" class="report">No stage has been run yet.</div>
   </section>
 </main>
 <script>
@@ -1254,7 +1254,7 @@ async function showStatus() {
     <div class="metric"><div class="label">Next Stage</div><div class="value ltr">${esc(data.next_stage)}</div></div>
     <div class="metric"><div class="label">Resume Token</div><div class="value ltr" style="font-size:13px">${esc(data.memory?.resume_token || '')}</div></div>
   </div>`;
-  document.getElementById('gates').innerHTML = data.gates.map(g => `<div class="gate"><b class="ltr">${g.stage_id}</b><span>${esc(g.stage_name)}</span><span class="status-${esc((g.stage_status||'').split(' ')[0])}">${esc(g.stage_status)}</span></div>`).join('') || '<span class="small">لا توجد بوابات بعد.</span>';
+  document.getElementById('gates').innerHTML = data.gates.map(g => `<div class="gate"><b class="ltr">${g.stage_id}</b><span>${esc(g.stage_name)}</span><span class="status-${esc((g.stage_status||'').split(' ')[0])}">${esc(g.stage_status)}</span></div>`).join('') || '<span class="small">No stage gates yet.</span>';
   if (data.dashboard) {
     const d = data.dashboard;
     document.getElementById('dashboard').innerHTML = `<div class="metric-grid">
@@ -1264,7 +1264,7 @@ async function showStatus() {
       <div class="metric"><div class="label">Decision</div><div class="value" style="font-size:16px">${esc(d.final_decision_recommendation)}</div></div>
     </div>`;
   } else {
-    document.getElementById('dashboard').innerHTML = '<span class="small">لم يتم إنشاء لوحة القيادة بعد.</span>';
+    document.getElementById('dashboard').innerHTML = '<span class="small">Dashboard has not been generated yet.</span>';
   }
   if (data.reports.length) document.getElementById('report').innerText = await (await fetch('/api/report?report_id='+data.reports[0].report_id)).text();
 }
@@ -1281,7 +1281,7 @@ document.getElementById('projectForm').addEventListener('submit', async e => {
 
 document.getElementById('uploadForm').addEventListener('submit', async e => {
   e.preventDefault();
-  if (!selectedProject) return alert('اختر مشروعاً أولاً');
+  if (!selectedProject) return alert('Select a project first');
   const form = new FormData(e.target);
   form.append('project_id', selectedProject);
   const data = await api('/api/upload', {method:'POST', body:form});
@@ -1290,7 +1290,7 @@ document.getElementById('uploadForm').addEventListener('submit', async e => {
 });
 
 async function seedDemo(){ const d = await api('/api/seed_demo',{method:'POST'}); selectedProject=d.project_id; await refresh(); await showStatus(); }
-async function runNext(){ if(!selectedProject)return alert('اختر مشروعاً'); const d=await api('/api/run_next',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:selectedProject})}); selectedStage=d.stage_id; document.getElementById('report').innerText=d.report||d.message; await showStatus(); }
+async function runNext(){ if(!selectedProject)return alert('Select a project'); const d=await api('/api/run_next',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:selectedProject})}); selectedStage=d.stage_id; document.getElementById('report').innerText=d.report||d.message; await showStatus(); }
 async function generateDashboard(){ if(!selectedProject)return; const d=await api('/api/run_stage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:selectedProject,stage_id:'STAGE06'})}); document.getElementById('report').innerText=d.report; await showStatus(); }
 async function approve(){ if(!selectedProject)return; const st=prompt('Stage to approve', selectedStage || 'STAGE00'); if(!st)return; const comments=prompt('Approval comments','Approved for prototype workflow')||''; const d=await api('/api/approve',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:selectedProject,stage_id:st,approver:'Management Reviewer',comments})}); document.getElementById('report').innerText='Stage approved.\nResume Token: '+d.resume_token; await showStatus(); }
 async function revise(){ if(!selectedProject)return; const st=prompt('Stage to revise', selectedStage || 'STAGE00'); if(!st)return; const comments=prompt('Revision comments','Please revise assumptions/evidence')||''; const d=await api('/api/revise',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:selectedProject,stage_id:st,comments})}); document.getElementById('report').innerText='Stage marked Needs Revision.\nResume Token: '+d.resume_token; await showStatus(); }

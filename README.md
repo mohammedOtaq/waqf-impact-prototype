@@ -2,7 +2,6 @@
 
 Functional local prototype for:
 
-**منصة الذكاء الاصطناعي لتقييم وإدارة الأثر الوقفي والخيري**  
 **Waqf & Charity Impact Intelligence Prototype**
 
 ## Run
@@ -33,7 +32,7 @@ http://127.0.0.1:8765
 
 ## Demo Path
 
-1. Click `إنشاء مشروع تجريبي`.
+1. Click `Create Demo Project`.
 2. Click `RUN NEXT STAGE`.
 3. Click `APPROVE STAGE`.
 4. Repeat until `STAGE06`.
